@@ -55,6 +55,11 @@ class BinaryTree {
     if ((key < node, key)) return this._searchNode(node.left, key);
     return this._searchNode(node.right, key);
   }
+
+  // create a json object from the tree
+  toJSON() {
+    return this.root;
+  }
 }
 
 export default BinaryTree;

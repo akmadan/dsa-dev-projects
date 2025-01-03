@@ -5,7 +5,7 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors()); 
+app.use(cors());
 app.use(express.json());
 
 const tree = new BinaryTree();
@@ -47,6 +47,10 @@ app.get("/search", (req, res) => {
   } else {
     res.json({ success: false, message: "File not found" });
   }
+});
+
+app.get("/show-tree", (req, res) => {
+  res.json({ success: true, data: tree.toJSON() });
 });
 
 app.listen(3001, () => console.log("Backend running on port 3001"));
