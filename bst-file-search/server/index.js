@@ -1,7 +1,7 @@
 import express from "express";
-import upload from "./services/file.upload.js";
-import BinaryTree from "./schemas/tree.schema.js";
 import cors from "cors";
+import BinaryTree from "./schemas/tree.schema";
+import upload from "./services/upload.file.service";
 
 const app = express();
 
@@ -14,12 +14,12 @@ const tree = new BinaryTree();
 app.post("/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   if (!file) {
-    return res
-      .status(400)
-      .json({ success: false, message: "No file uploaded" });
+    return res.status(400).json({
+      success: false,
+      error: "Please pass the file",
+    });
   }
 
-  // Insert file metadata into binary tree
   tree.insert(file.filename, {
     path: file.path,
     size: file.size,
@@ -28,29 +28,36 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
   const response = {
     success: true,
-    message: "File uploaded successfully",
-    data: tree,
+    message: "File Uploaded",
+    data: tree.toJSON(),
     file: file,
   };
-
-  console.log(response);
 
   res.json(response);
 });
 
-// API to search for a file
 app.get("/search", (req, res) => {
   const key = req.query.key;
   const result = tree.search(key);
+
   if (result) {
-    res.json({ success: true, data: result });
+    res.json({
+      success: true,
+      data: result,
+    });
   } else {
-    res.json({ success: false, message: "File not found" });
+    res.json({
+      success: false,
+      message: "File not found",
+    });
   }
 });
 
 app.get("/show-tree", (req, res) => {
-  res.json({ success: true, data: tree.toJSON() });
+  res.json({
+    success: true,
+    data: tree.toJSON(),
+  });
 });
 
 app.listen(3001, () => console.log("Backend running on port 3001"));

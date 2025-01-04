@@ -1,7 +1,7 @@
 class TreeNode {
   constructor(key, value) {
-    this.key = key; // File name or path
-    this.value = value; // File metadata (e.g., path, size, creation date)
+    this.key = key;
+    this.value = value;
     this.left = null;
     this.right = null;
   }
@@ -13,7 +13,6 @@ class BinaryTree {
   }
 
   // insert
-
   insert(key, value) {
     const newNode = new TreeNode(key, value);
 
@@ -24,8 +23,7 @@ class BinaryTree {
     }
   }
 
-  // insert node
-
+  // insert node helper
   _insertNode(node, newNode) {
     if (newNode.key < node.key) {
       if (node.left === null) {
@@ -47,16 +45,14 @@ class BinaryTree {
     return this._searchNode(this.root, key);
   }
 
-  // search node
-
+  // search node helper
   _searchNode(node, key) {
     if (node === null) return null;
-    if (key === node.key) return node.value;
-    if ((key < node, key)) return this._searchNode(node.left, key);
+    if (node === node.key) return node.value;
+    if (key < node.key) return this._searchNode(node.left, key);
     return this._searchNode(node.right, key);
   }
 
-  // create a json object from the tree
   toJSON() {
     return this.root;
   }
