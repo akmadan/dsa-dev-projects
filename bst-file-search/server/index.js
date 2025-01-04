@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import BinaryTree from "./schemas/tree.schema";
-import upload from "./services/upload.file.service";
+import BinaryTree from "./schemas/tree.schema.js";
+import upload from "./services/upload.file.service.js";
 
 const app = express();
 
@@ -38,6 +38,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
 app.get("/search", (req, res) => {
   const key = req.query.key;
+  console.log(key);
   const result = tree.search(key);
 
   if (result) {

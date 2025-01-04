@@ -47,9 +47,10 @@ class BinaryTree {
 
   // search node helper
   _searchNode(node, key) {
+    console.log(node.key);
     if (node === null) return null;
-    if (node === node.key) return node.value;
-    if (key < node.key) return this._searchNode(node.left, key);
+    if (key === node.key) return node.value;
+    if ((key < node.key)) return this._searchNode(node.left, key);
     return this._searchNode(node.right, key);
   }
 
