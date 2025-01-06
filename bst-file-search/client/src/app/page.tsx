@@ -8,6 +8,7 @@ interface SearchResult {
   data?: {
     path: string;
     size: string;
+     
   };
 }
 
